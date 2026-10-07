@@ -46,16 +46,28 @@ def handle_events(pressed_keys):
     return True
 
 
-def update_player(pressed_keys, player, delta_time):
-    """Move the player, preserve horizontal facing, and keep the sprite visible."""
+def movement_vector(pressed_keys):
+    """Return normalized movement for the currently held arrow keys."""
     dx = sum(KEY_DIRECTIONS[key][0] for key in pressed_keys)
     dy = sum(KEY_DIRECTIONS[key][1] for key in pressed_keys)
 
-    # Normalize diagonal movement so it is not faster than straight movement.
     if dx and dy:
         diagonal_scale = 2 ** -0.5
         dx *= diagonal_scale
         dy *= diagonal_scale
+
+    return dx, dy
+
+
+def keep_player_on_screen(player):
+    """Clamp the player's center so its sprite stays inside the canvas."""
+    player["x"] = max(PLAYER_HALF_SIZE, min(SCREEN_WIDTH - PLAYER_HALF_SIZE, player["x"]))
+    player["y"] = max(PLAYER_HALF_SIZE, min(SCREEN_HEIGHT - PLAYER_HALF_SIZE, player["y"]))
+
+
+def update_player(pressed_keys, player, delta_time):
+    """Move the player, preserve horizontal facing, and keep the sprite visible."""
+    dx, dy = movement_vector(pressed_keys)
 
     player["x"] += dx * PLAYER_SPEED * delta_time
     player["y"] += dy * PLAYER_SPEED * delta_time
@@ -65,8 +77,7 @@ def update_player(pressed_keys, player, delta_time):
     elif dx > 0:
         player["facing"] = "right"
 
-    player["x"] = max(PLAYER_HALF_SIZE, min(SCREEN_WIDTH - PLAYER_HALF_SIZE, player["x"]))
-    player["y"] = max(PLAYER_HALF_SIZE, min(SCREEN_HEIGHT - PLAYER_HALF_SIZE, player["y"]))
+    keep_player_on_screen(player)
 
     player["moving"] = bool(dx or dy)
     player["animation_time"] += delta_time
