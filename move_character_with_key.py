@@ -5,6 +5,8 @@ from pico2d import *
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 1024
+SCREEN_CENTER_X = SCREEN_WIDTH / 2
+SCREEN_CENTER_Y = SCREEN_HEIGHT / 2
 FRAME_SIZE = 100
 FRAME_COUNT = 8
 PLAYER_SPEED = 300.0  # pixels per second
@@ -82,8 +84,8 @@ def keep_player_on_screen(player):
 def create_player():
     """Create the initial player state at the center of the screen."""
     return {
-        "x": SCREEN_WIDTH / 2,
-        "y": SCREEN_HEIGHT / 2,
+        "x": SCREEN_CENTER_X,
+        "y": SCREEN_CENTER_Y,
         "facing": "right",
         "moving": False,
         "frame": 0,
@@ -152,7 +154,7 @@ def draw_player(sprite_sheet, player):
 def draw_scene(background, sprite_sheet, player):
     """Render the background first and the player on top of it."""
     clear_canvas()
-    background.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    background.draw(SCREEN_CENTER_X, SCREEN_CENTER_Y)
     draw_player(sprite_sheet, player)
     update_canvas()
 
