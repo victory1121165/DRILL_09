@@ -73,6 +73,7 @@ def keep_player_on_screen(player):
 
 def update_player(pressed_keys, player, delta_time):
     """Move the player, preserve horizontal facing, and keep the sprite visible."""
+    was_moving = player["moving"]
     dx, dy = movement_vector(pressed_keys)
 
     player["x"] += dx * PLAYER_SPEED * delta_time
@@ -86,6 +87,10 @@ def update_player(pressed_keys, player, delta_time):
     keep_player_on_screen(player)
 
     player["moving"] = bool(dx or dy)
+    if player["moving"] != was_moving:
+        player["frame"] = 0
+        player["animation_time"] = 0.0
+
     player["animation_time"] += delta_time
     if player["animation_time"] >= 1.0 / ANIMATION_FPS:
         player["frame"] = (player["frame"] + 1) % FRAME_COUNT
