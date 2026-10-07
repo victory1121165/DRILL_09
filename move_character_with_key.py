@@ -97,6 +97,13 @@ def update_facing(player, horizontal_direction):
         player["facing"] = "right"
 
 
+def move_player(player, dx, dy, delta_time):
+    """Apply the normalized movement vector to the player's position."""
+    player["x"] += dx * PLAYER_SPEED * delta_time
+    player["y"] += dy * PLAYER_SPEED * delta_time
+    keep_player_on_screen(player)
+
+
 def advance_animation(player, delta_time):
     """Advance the sprite animation without depending on render speed."""
     player["animation_time"] += delta_time
@@ -110,12 +117,8 @@ def update_player(pressed_keys, player, delta_time):
     was_moving = player["moving"]
     dx, dy = movement_vector(pressed_keys)
 
-    player["x"] += dx * PLAYER_SPEED * delta_time
-    player["y"] += dy * PLAYER_SPEED * delta_time
-
+    move_player(player, dx, dy, delta_time)
     update_facing(player, dx)
-
-    keep_player_on_screen(player)
 
     player["moving"] = bool(dx or dy)
     if player["moving"] != was_moving:
