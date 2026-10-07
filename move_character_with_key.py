@@ -66,10 +66,15 @@ def movement_vector(pressed_keys):
     return dx, dy
 
 
+def clamp(value, minimum, maximum):
+    """Restrict a value to an inclusive range."""
+    return max(minimum, min(maximum, value))
+
+
 def keep_player_on_screen(player):
     """Clamp the player's center so its sprite stays inside the canvas."""
-    player["x"] = max(PLAYER_HALF_SIZE, min(SCREEN_WIDTH - PLAYER_HALF_SIZE, player["x"]))
-    player["y"] = max(PLAYER_HALF_SIZE, min(SCREEN_HEIGHT - PLAYER_HALF_SIZE, player["y"]))
+    player["x"] = clamp(player["x"], PLAYER_HALF_SIZE, SCREEN_WIDTH - PLAYER_HALF_SIZE)
+    player["y"] = clamp(player["y"], PLAYER_HALF_SIZE, SCREEN_HEIGHT - PLAYER_HALF_SIZE)
 
 
 def create_player():
