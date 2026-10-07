@@ -147,6 +147,14 @@ def draw_player(sprite_sheet, player):
     )
 
 
+def draw_scene(background, sprite_sheet, player):
+    """Render the background first and the player on top of it."""
+    clear_canvas()
+    background.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    draw_player(sprite_sheet, player)
+    update_canvas()
+
+
 def main():
     open_canvas(SCREEN_WIDTH, SCREEN_HEIGHT)
     background = load_image(BACKGROUND_FILE)
@@ -169,10 +177,7 @@ def main():
 
             update_player(pressed_keys, player, delta_time)
 
-            clear_canvas()
-            background.draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-            draw_player(sprite_sheet, player)
-            update_canvas()
+            draw_scene(background, sprite_sheet, player)
             delay(0.01)
     finally:
         close_canvas()
