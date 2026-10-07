@@ -83,6 +83,14 @@ def create_player():
     }
 
 
+def update_facing(player, horizontal_direction):
+    """Change facing only when there is horizontal movement."""
+    if horizontal_direction < 0:
+        player["facing"] = "left"
+    elif horizontal_direction > 0:
+        player["facing"] = "right"
+
+
 def update_player(pressed_keys, player, delta_time):
     """Move the player, preserve horizontal facing, and keep the sprite visible."""
     was_moving = player["moving"]
@@ -91,10 +99,7 @@ def update_player(pressed_keys, player, delta_time):
     player["x"] += dx * PLAYER_SPEED * delta_time
     player["y"] += dy * PLAYER_SPEED * delta_time
 
-    if dx < 0:
-        player["facing"] = "left"
-    elif dx > 0:
-        player["facing"] = "right"
+    update_facing(player, dx)
 
     keep_player_on_screen(player)
 
