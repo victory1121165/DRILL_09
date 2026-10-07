@@ -169,7 +169,8 @@ def main():
         previous_time = get_time()
         while running:
             current_time = get_time()
-            delta_time = min(current_time - previous_time, MAX_DELTA_TIME)
+            elapsed_time = max(0.0, current_time - previous_time)
+            delta_time = min(elapsed_time, MAX_DELTA_TIME)
             previous_time = current_time
 
             running = handle_events(pressed_keys)
