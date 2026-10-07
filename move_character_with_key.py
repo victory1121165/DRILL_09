@@ -34,6 +34,7 @@ KEY_DIRECTIONS = {
     SDLK_LEFT: (-1, 0),
     SDLK_RIGHT: (1, 0),
 }
+MOVEMENT_KEYS = frozenset(KEY_DIRECTIONS)
 
 
 def handle_events(pressed_keys):
@@ -45,10 +46,10 @@ def handle_events(pressed_keys):
         if event.type == SDL_KEYDOWN:
             if event.key == SDLK_ESCAPE:
                 return False
-            if event.key in KEY_DIRECTIONS:
+            if event.key in MOVEMENT_KEYS:
                 pressed_keys.add(event.key)
 
-        elif event.type == SDL_KEYUP and event.key in KEY_DIRECTIONS:
+        elif event.type == SDL_KEYUP and event.key in MOVEMENT_KEYS:
             pressed_keys.discard(event.key)
 
     return True
