@@ -17,7 +17,8 @@ FRAME_DELAY = 0.01
 BACKGROUND_FILE = "TUK_GROUND.png"
 SPRITE_SHEET_FILE = "animation_sheet.png"
 PLAYER_HALF_SIZE = FRAME_SIZE // 2
-PLAYER_VERTICAL_MARGIN = FRAME_SIZE
+PLAYER_BOTTOM_MARGIN = FRAME_SIZE * 2
+PLAYER_TOP_MARGIN = FRAME_SIZE
 
 # Sprite-sheet rows are counted from the bottom, as required by clip_draw.
 IDLE_RIGHT_ROW = 3
@@ -81,8 +82,8 @@ def keep_player_on_screen(player):
     player["x"] = clamp(player["x"], PLAYER_HALF_SIZE, SCREEN_WIDTH - PLAYER_HALF_SIZE)
     player["y"] = clamp(
         player["y"],
-        PLAYER_VERTICAL_MARGIN,
-        SCREEN_HEIGHT - PLAYER_VERTICAL_MARGIN,
+        PLAYER_BOTTOM_MARGIN,
+        SCREEN_HEIGHT - PLAYER_TOP_MARGIN,
     )
 
 
