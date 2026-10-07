@@ -9,6 +9,9 @@ FRAME_SIZE = 100
 FRAME_COUNT = 8
 PLAYER_SPEED = 300.0  # pixels per second
 ANIMATION_FPS = 12.0
+MAX_DELTA_TIME = 0.05
+BACKGROUND_FILE = "TUK_GROUND.png"
+SPRITE_SHEET_FILE = "animation_sheet.png"
 PLAYER_HALF_SIZE = FRAME_SIZE // 2
 
 # Sprite-sheet rows are counted from the bottom, as required by clip_draw.
@@ -91,8 +94,8 @@ def draw_player(sprite_sheet, player):
 
 def main():
     open_canvas(SCREEN_WIDTH, SCREEN_HEIGHT)
-    background = load_image("TUK_GROUND.png")
-    sprite_sheet = load_image("animation_sheet.png")
+    background = load_image(BACKGROUND_FILE)
+    sprite_sheet = load_image(SPRITE_SHEET_FILE)
 
     pressed_keys = set()
     player = {
@@ -109,7 +112,7 @@ def main():
     try:
         while running:
             current_time = get_time()
-            delta_time = min(current_time - previous_time, 0.05)
+            delta_time = min(current_time - previous_time, MAX_DELTA_TIME)
             previous_time = current_time
 
             running = handle_events(pressed_keys)
