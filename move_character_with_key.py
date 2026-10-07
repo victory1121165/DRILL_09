@@ -11,6 +11,7 @@ PLAYER_SPEED = 300.0  # pixels per second
 ANIMATION_FPS = 12.0
 ANIMATION_FRAME_DURATION = 1.0 / ANIMATION_FPS
 MAX_DELTA_TIME = 0.05
+FRAME_DELAY = 0.01
 BACKGROUND_FILE = "TUK_GROUND.png"
 SPRITE_SHEET_FILE = "animation_sheet.png"
 PLAYER_HALF_SIZE = FRAME_SIZE // 2
@@ -178,7 +179,7 @@ def main():
             update_player(pressed_keys, player, delta_time)
 
             draw_scene(background, sprite_sheet, player)
-            delay(0.01)
+            delay(FRAME_DELAY)
     finally:
         close_canvas()
 
