@@ -19,6 +19,12 @@ IDLE_RIGHT_ROW = 3
 IDLE_LEFT_ROW = 2
 RUN_RIGHT_ROW = 1
 RUN_LEFT_ROW = 0
+ANIMATION_ROWS = {
+    ("right", False): IDLE_RIGHT_ROW,
+    ("left", False): IDLE_LEFT_ROW,
+    ("right", True): RUN_RIGHT_ROW,
+    ("left", True): RUN_LEFT_ROW,
+}
 
 KEY_DIRECTIONS = {
     SDLK_UP: (0, 1),
@@ -88,10 +94,7 @@ def update_player(pressed_keys, player, delta_time):
 
 def draw_player(sprite_sheet, player):
     """Draw an idle or running animation that matches the current facing."""
-    if player["facing"] == "left":
-        row = RUN_LEFT_ROW if player["moving"] else IDLE_LEFT_ROW
-    else:
-        row = RUN_RIGHT_ROW if player["moving"] else IDLE_RIGHT_ROW
+    row = ANIMATION_ROWS[(player["facing"], player["moving"])]
 
     sprite_sheet.clip_draw(
         player["frame"] * FRAME_SIZE,
