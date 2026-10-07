@@ -18,7 +18,7 @@ BACKGROUND_FILE = "TUK_GROUND.png"
 SPRITE_SHEET_FILE = "animation_sheet.png"
 PLAYER_HALF_SIZE = FRAME_SIZE // 2
 PLAYER_BOTTOM_MARGIN = FRAME_SIZE * 2
-PLAYER_TOP_MARGIN = FRAME_SIZE * 2
+PLAYER_TOP_MARGIN = FRAME_SIZE * 2 - FRAME_SIZE // 4
 
 # Sprite-sheet rows are counted from the bottom, as required by clip_draw.
 IDLE_RIGHT_ROW = 3
