@@ -9,6 +9,7 @@ FRAME_SIZE = 100
 FRAME_COUNT = 8
 PLAYER_SPEED = 300.0  # pixels per second
 ANIMATION_FPS = 12.0
+ANIMATION_FRAME_DURATION = 1.0 / ANIMATION_FPS
 MAX_DELTA_TIME = 0.05
 BACKGROUND_FILE = "TUK_GROUND.png"
 SPRITE_SHEET_FILE = "animation_sheet.png"
@@ -94,10 +95,9 @@ def update_facing(player, horizontal_direction):
 def advance_animation(player, delta_time):
     """Advance the sprite animation without depending on render speed."""
     player["animation_time"] += delta_time
-    frame_duration = 1.0 / ANIMATION_FPS
-    if player["animation_time"] >= frame_duration:
+    if player["animation_time"] >= ANIMATION_FRAME_DURATION:
         player["frame"] = (player["frame"] + 1) % FRAME_COUNT
-        player["animation_time"] %= frame_duration
+        player["animation_time"] %= ANIMATION_FRAME_DURATION
 
 
 def update_player(pressed_keys, player, delta_time):
