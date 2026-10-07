@@ -128,9 +128,14 @@ def update_player(pressed_keys, player, delta_time):
     advance_animation(player, delta_time)
 
 
+def animation_row(player):
+    """Select the sprite-sheet row for the current facing and movement state."""
+    return ANIMATION_ROWS[(player["facing"], player["moving"])]
+
+
 def draw_player(sprite_sheet, player):
     """Draw an idle or running animation that matches the current facing."""
-    row = ANIMATION_ROWS[(player["facing"], player["moving"])]
+    row = animation_row(player)
 
     sprite_sheet.clip_draw(
         player["frame"] * FRAME_SIZE,
