@@ -95,9 +95,9 @@ def update_facing(player, horizontal_direction):
 def advance_animation(player, delta_time):
     """Advance the sprite animation without depending on render speed."""
     player["animation_time"] += delta_time
-    if player["animation_time"] >= ANIMATION_FRAME_DURATION:
+    while player["animation_time"] >= ANIMATION_FRAME_DURATION:
         player["frame"] = (player["frame"] + 1) % FRAME_COUNT
-        player["animation_time"] %= ANIMATION_FRAME_DURATION
+        player["animation_time"] -= ANIMATION_FRAME_DURATION
 
 
 def update_player(pressed_keys, player, delta_time):
