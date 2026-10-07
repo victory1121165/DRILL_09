@@ -158,15 +158,15 @@ def draw_scene(background, sprite_sheet, player):
 
 def main():
     open_canvas(SCREEN_WIDTH, SCREEN_HEIGHT)
-    background = load_image(BACKGROUND_FILE)
-    sprite_sheet = load_image(SPRITE_SHEET_FILE)
-
-    pressed_keys = set()
-    player = create_player()
-
-    running = True
-    previous_time = get_time()
     try:
+        background = load_image(BACKGROUND_FILE)
+        sprite_sheet = load_image(SPRITE_SHEET_FILE)
+
+        pressed_keys = set()
+        player = create_player()
+
+        running = True
+        previous_time = get_time()
         while running:
             current_time = get_time()
             delta_time = min(current_time - previous_time, MAX_DELTA_TIME)
