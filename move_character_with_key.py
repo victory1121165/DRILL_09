@@ -91,6 +91,15 @@ def update_facing(player, horizontal_direction):
         player["facing"] = "right"
 
 
+def advance_animation(player, delta_time):
+    """Advance the sprite animation without depending on render speed."""
+    player["animation_time"] += delta_time
+    frame_duration = 1.0 / ANIMATION_FPS
+    if player["animation_time"] >= frame_duration:
+        player["frame"] = (player["frame"] + 1) % FRAME_COUNT
+        player["animation_time"] %= frame_duration
+
+
 def update_player(pressed_keys, player, delta_time):
     """Move the player, preserve horizontal facing, and keep the sprite visible."""
     was_moving = player["moving"]
@@ -108,10 +117,7 @@ def update_player(pressed_keys, player, delta_time):
         player["frame"] = 0
         player["animation_time"] = 0.0
 
-    player["animation_time"] += delta_time
-    if player["animation_time"] >= 1.0 / ANIMATION_FPS:
-        player["frame"] = (player["frame"] + 1) % FRAME_COUNT
-        player["animation_time"] %= 1.0 / ANIMATION_FPS
+    advance_animation(player, delta_time)
 
 
 def draw_player(sprite_sheet, player):
