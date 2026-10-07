@@ -71,6 +71,18 @@ def keep_player_on_screen(player):
     player["y"] = max(PLAYER_HALF_SIZE, min(SCREEN_HEIGHT - PLAYER_HALF_SIZE, player["y"]))
 
 
+def create_player():
+    """Create the initial player state at the center of the screen."""
+    return {
+        "x": SCREEN_WIDTH / 2,
+        "y": SCREEN_HEIGHT / 2,
+        "facing": "right",
+        "moving": False,
+        "frame": 0,
+        "animation_time": 0.0,
+    }
+
+
 def update_player(pressed_keys, player, delta_time):
     """Move the player, preserve horizontal facing, and keep the sprite visible."""
     was_moving = player["moving"]
@@ -117,14 +129,7 @@ def main():
     sprite_sheet = load_image(SPRITE_SHEET_FILE)
 
     pressed_keys = set()
-    player = {
-        "x": SCREEN_WIDTH / 2,
-        "y": SCREEN_HEIGHT / 2,
-        "facing": "right",
-        "moving": False,
-        "frame": 0,
-        "animation_time": 0.0,
-    }
+    player = create_player()
 
     running = True
     previous_time = get_time()
